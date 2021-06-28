@@ -1,6 +1,7 @@
 package eternity.math;
 
 import eternity.exception.OutOfRangeException;
+import java.util.*;
 
 public class Functions {
 
@@ -88,5 +89,17 @@ public class Functions {
      */
     public static double exponential(double a, double b, double x) {
         return a * natural_exponential(x * Math.log(b));
+    }
+    
+    public static double std_dev(ArrayList<Double> a) {
+    	double sd = 0;
+    	double sum = 0;
+    	for (double i : a)
+    		sum += i;
+    	double mean = sum / a.size();
+    	for (double num : a)
+    		sd += Math.pow(num - mean, 2);
+    	sd = Math.sqrt(sd/a.size());
+    	return sd;
     }
 }
