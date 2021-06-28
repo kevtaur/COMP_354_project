@@ -102,4 +102,27 @@ public class Functions {
     	sd = Math.sqrt(sd/a.size());
     	return sd;
     }
+    
+    /**
+     * Mean Absolute Deviation (MAD)
+     * @param d an array of real numbers 
+     * @return a real number
+     */
+    public static double meanAbsoluteDeviation(double[] dataSet) {
+    	double avg = 0;
+        for (double x : dataSet) {
+        	avg += x;
+        }
+        avg /= dataSet.length;		// Calculate mean of dataSet
+        
+        double madSum = 0;
+		for (double x : dataSet) {
+			if (x < avg)			// absolute deviation from data point to calculated mean
+				madSum += avg - x;
+			else
+				madSum += x - avg;
+        }
+		
+		return madSum / dataSet.length;	// return mean absolute deviation
+    }
 }
