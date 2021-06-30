@@ -126,3 +126,15 @@ public class Functions {
 		return madSum / dataSet.length;	// return mean absolute deviation
     }
 }
+
+    /*
+     * Hyperbolic Function( sinh(x) )
+     * @param x:a real variable
+     * @return :a real number with range (-infinity,infinity)
+     * */
+    public static double calcbye(double x){
+        double e1 = Math.pow(Math.E,x); // calculate the e^x
+        double e2 = Math.pow(Math.E,-x);// calculate the e^-x
+        double sinh = (e1-e2)/2;
+        return sinh;
+    }
