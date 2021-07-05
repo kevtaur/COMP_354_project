@@ -92,15 +92,17 @@ public class Functions {
         return a * natural_exponential(x * Math.log(b));
     }
     
-    public static double std_dev(ArrayList<Double> a) {
+    public static double std_dev(ArrayList<Double> dataSet) throws EmptyInputException {
+    	if (dataSet.isEmpty())
+    		throw new EmptyInputException();
     	double sd = 0;
     	double sum = 0;
-    	for (double i : a)
+    	for (double i : dataSet)
     		sum += i;
-    	double mean = sum / a.size();
-    	for (double num : a)
+    	double mean = sum / dataSet.size();
+    	for (double num : dataSet)
     		sd += Math.pow(num - mean, 2);
-    	sd = Math.sqrt(sd/a.size());
+    	sd = Math.sqrt(sd/dataSet.size());
     	return sd;
     }
     
