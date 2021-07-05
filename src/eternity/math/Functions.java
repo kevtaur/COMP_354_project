@@ -131,4 +131,45 @@ public class Functions {
 		
 		return madSum / dataSet.size();	// return mean absolute deviation
     }
+    
+    /**
+     * Natural logarithm (base e)
+     * @param x - real number
+     * @return real number
+     */
+	private static double ln(double x) {
+	    double old_sum = 0.0;
+	    double denominator = 1.0;
+	    double y = (x - 1) / (x + 1);
+	    double y2 = y * y;
+	    double sum = y;
+
+	    while (sum != old_sum) {
+	        old_sum = sum;
+	        denominator += 2.0;
+	        y *= y2;
+	        sum += y / denominator;
+	    }
+	    return 2.0 * sum;
+	}
+	
+	/**
+     * Common logarithm (base 10)
+     * @param x real number
+     * @return real number
+     */
+	public static double log(double x) throws OutOfRangeException {
+	    return log(x, 10);
+	}
+	
+	/**
+     * Logarithmic function (custom base)
+     * @param x real number
+     * @param base real number
+     * @return real number
+     */
+	public static double log(double x, double base) throws OutOfRangeException {
+		if (x <= 0 || base <= 0 || base == 1) throw new OutOfRangeException();
+		return ln(x)/ln(base);
+	}
 }
