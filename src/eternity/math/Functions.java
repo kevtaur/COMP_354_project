@@ -1,6 +1,7 @@
 package eternity.math;
 
 import eternity.exception.OutOfRangeException;
+import eternity.exception.EmptyInputException;
 import java.util.*;
 
 public class Functions {
@@ -105,15 +106,18 @@ public class Functions {
     
     /**
      * Mean Absolute Deviation (MAD)
-     * @param d an array of real numbers 
+     * @param d an arrayList of real numbers 
      * @return a real number
      */
-    public static double meanAbsoluteDeviation(double[] dataSet) {
+    public static double meanAbsoluteDeviation(ArrayList<Double> dataSet) throws EmptyInputException {
+    	if (dataSet.isEmpty())
+    		throw new EmptyInputException();
+    	
     	double avg = 0;
         for (double x : dataSet) {
         	avg += x;
         }
-        avg /= dataSet.length;		// Calculate mean of dataSet
+        avg /= dataSet.size();		// Calculate mean of dataSet
         
         double madSum = 0;
 		for (double x : dataSet) {
@@ -123,6 +127,6 @@ public class Functions {
 				madSum += x - avg;
         }
 		
-		return madSum / dataSet.length;	// return mean absolute deviation
+		return madSum / dataSet.size();	// return mean absolute deviation
     }
 }

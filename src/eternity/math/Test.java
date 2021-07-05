@@ -1,4 +1,9 @@
-	package eternity.math;
+/* COMP 354 - Team M ETERNITY
+ * Written by: Kevin Ve,
+ * 
+ */
+
+package eternity.math;
 
 import eternity.exception.OutOfRangeException;
 import java.util.*;
@@ -17,7 +22,7 @@ public class Test {
 			System.out.println("MATH ERROR");
 		}
 		
-		System.out.println("Test standard deviation");
+		System.out.println("\nTest standard deviation");
 		try {
 			ArrayList<Double> test = new ArrayList<>();
 			test.add(3.0);
@@ -32,9 +37,13 @@ public class Test {
 		
 		System.out.println("\nTesting meanAbsoluteDeviation()");
 		try {
-			double arr[] = {1.0 ,2.0, 3.0, 4.0, 5.0, 6.0};
-			System.out.println(Functions.meanAbsoluteDeviation(arr));
-			assert Functions.meanAbsoluteDeviation(arr) == 1.5;
+			ArrayList<Double> test = new ArrayList<>();
+			test.add(3.0);
+			test.add(4.0);
+			test.add(8.6);
+			test.add(9.4);
+			test.add(49.3);
+			System.out.println(Functions.meanAbsoluteDeviation(test));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
