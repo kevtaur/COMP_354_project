@@ -6,6 +6,7 @@
 package eternity.math;
 
 import eternity.exception.OutOfRangeException;
+
 import java.util.*;
 public class Test {
 	public static void main(String[] args) {
@@ -48,6 +49,20 @@ public class Test {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Program End.");
+		System.out.println("\nTesting log()");
+		try {
+			System.out.println(Functions.log(0.5));
+			System.out.println(Functions.log(7.5));
+			System.out.println(Functions.log(10));
+			
+			System.out.println(Functions.log(0.5, 2));
+			System.out.println(Functions.log(7.5, 5));
+			System.out.println(Functions.log(55, 78));
+		}
+		catch (OutOfRangeException e) {
+			System.out.println("MATH ERROR");
+		}
+		
+		System.out.println("\nProgram End.");
 	}
 }
