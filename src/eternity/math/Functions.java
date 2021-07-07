@@ -172,4 +172,16 @@ public class Functions {
 		if (x <= 0 || base <= 0 || base == 1) throw new OutOfRangeException();
 		return ln(x)/ln(base);
 	}
+	
+	/*
+     * Hyperbolic Function( sinh(x) )
+     * @param x:a real variable
+     * @return :a real number with range (-infinity,infinity)
+     * */
+    public static double sinh(double x){
+        double e1 = natural_exponential(x); // calculate the e^x
+        double e2 = natural_exponential(-x);// calculate the e^-x
+        double sinh = (e1-e2)/2;
+        return sinh;
+    }
 }
