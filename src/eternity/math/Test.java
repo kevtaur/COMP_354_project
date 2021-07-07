@@ -63,6 +63,21 @@ public class Test {
 			System.out.println("MATH ERROR");
 		}
 		
+		System.out.println("\nTesting sinh()");
+        	try {
+            	System.out.println(Functions.sinh(3));
+            	System.out.println(Functions.sinh(1.5));
+            	System.out.println(Functions.sinh(4));
+            	System.out.println(Functions.sinh(-3));
+            	System.out.println(Functions.sinh(-2));
+            	System.out.println(Functions.sinh(-1.4));
+        	}
+        	catch (Exception e) {
+            	System.out.println("MATH ERROR");
+        	}
+		
+		
+	
 		System.out.println("\nProgram End.");
 	}
 }
