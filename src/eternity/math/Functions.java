@@ -43,7 +43,7 @@ public class Functions {
     }
 
     /**
-     * Taylor Series (20th approximation)
+     * Taylor Series (100th approximation)
      * e^x
      *
      * @param x real number
@@ -51,7 +51,7 @@ public class Functions {
      */
     private static double natural_exponential(double x) {
         double result = 1;
-        int loop = 20;
+        int loop = 100;
         int start = 1;
 
         while (start <= loop) {
@@ -89,7 +89,10 @@ public class Functions {
      * @return real number
      */
     public static double exponential(double a, double b, double x) {
-        return a * natural_exponential(x * Math.log(b));
+        if (b>=0)
+            return a * natural_exponential(x * ln(b));
+        else
+            return a* Math.pow(b,x);
     }
     
     public static double std_dev(ArrayList<Double> dataSet) throws EmptyInputException {
@@ -108,7 +111,7 @@ public class Functions {
     
     /**
      * Mean Absolute Deviation (MAD)
-     * @param d an arrayList of real numbers 
+     * @param dataSet an arrayList of real numbers
      * @return a real number
      */
     public static double meanAbsoluteDeviation(ArrayList<Double> dataSet) throws EmptyInputException {

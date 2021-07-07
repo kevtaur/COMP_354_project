@@ -62,7 +62,6 @@ public class Test {
 		catch (OutOfRangeException e) {
 			System.out.println("MATH ERROR");
 		}
-		
 		System.out.println("\nTesting sinh()");
         	try {
             	System.out.println(Functions.sinh(3));
