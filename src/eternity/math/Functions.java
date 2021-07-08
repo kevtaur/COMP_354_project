@@ -25,13 +25,16 @@ public class Functions {
         double result = x;
 
         for (int n = 1; n < 14; n++) {
-            result += (semifactorial(2 * n - 1) / semifactorial(2 * n)) * (Math.pow(x, 2 * n + 1) / (2 * n + 1));
+            result += (semifactorial(2 * n - 1) / semifactorial(2 * n)) * (exponential(1, x, 2 * n + 1) / (2 * n + 1));
         }
 
         return Math.PI / 2 - result;
     }
 
-    public static double semifactorial(int x) {
+    public static double semifactorial(int x) throws OutOfRangeException {
+    	if (x < 0)
+    		throw new OutOfRangeException();
+    	
         int result = 1;
 
         while (x > 0) {
