@@ -58,10 +58,21 @@ public class Functions {
         int start = 1;
 
         while (start <= loop) {
-            result += Math.pow(x, start) / factorial(start);
+            result += power_intPositiveExponent(x, start) / factorial(start);
             start++;
         }
         return result;
+    }
+
+    public static double power_intPositiveExponent (double base, int x){
+        double result = base;
+        if (x==1) return result;
+        else {
+            for (int i = 2; i<=x; i++){
+                result = result*base;
+            }
+            return result;
+        }
     }
 
     private static double factorial(int n) {
@@ -72,15 +83,15 @@ public class Functions {
         }
     }
 
-    private static double ln_derivative(double x, int derivDegree) {
+    private static double ln_derivative(double x, int derivDegree) throws OutOfRangeException{
         if (derivDegree == 1)
-            return Math.pow(x, -1);
+            return exponential(1,x, -1);
         else {
             double prefix = 1;
             for (int i = 1; i < derivDegree; i++) {
                 prefix *= (-1 * i);
             }
-            return prefix * Math.pow(x, derivDegree * -1);
+            return prefix * exponential(1,x, derivDegree * -1);
         }
     }
 
@@ -90,12 +101,28 @@ public class Functions {
      * @param b real number
      * @param x real number
      * @return real number
+     * Input restraint: no negative base with decimal exponent
      */
     public static double exponential(double a, double b, double x) {
         if (b>=0)
             return a * natural_exponential(x * ln(b));
         else
-            return a* Math.pow(b,x);
+            return a* power(b,(int)x);
+    }
+
+    public static double power(double x, int n){
+        if(n==0)
+            return 1;
+
+        if(n<0){
+            x = 1.0/x;
+            n = -n;
+        }
+        double ret = power(x,n/2);
+        ret = ret * ret;
+        if(n%2!=0)
+            ret = ret * x;
+        return ret;
     }
     
     public static double std_dev(ArrayList<Double> dataSet) throws EmptyInputException {
@@ -107,7 +134,7 @@ public class Functions {
     		sum += i;
     	double mean = sum / dataSet.size();
     	for (double num : dataSet)
-    		sd += Math.pow(num - mean, 2);
+    		sd += exponential(1,num - mean, 2);
     	sd = Math.sqrt(sd/dataSet.size());
     	return sd;
     }
@@ -179,12 +206,12 @@ public class Functions {
 		return ln(x)/ln(base);
 	}
 	
-	/*
+	/**
      * Hyperbolic Function( sinh(x) )
      * @param x:a real variable
      * @return :a real number with range (-infinity,infinity)
      * */
-    public static double sinh(double x){
+    public static double sinh(double x) throws OutOfRangeException{
         double e1 = natural_exponential(x); // calculate the e^x
         double e2 = natural_exponential(-x);// calculate the e^-x
         double sinh = (e1-e2)/2;
