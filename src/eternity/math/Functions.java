@@ -1,5 +1,6 @@
 package eternity.math;
 
+import com.expression.parser.exception.CalculatorException;
 import eternity.exception.OutOfRangeException;
 import eternity.exception.EmptyInputException;
 import java.util.*;
@@ -10,9 +11,9 @@ public class Functions {
      * @param x: Domain [-1, 1]
      * @return: Range [0, PI], in Rad
      */
-    public static double arccosine(double x) throws OutOfRangeException {
+    public static double arccosine(double x) throws CalculatorException {
         if (x < -1 || x > 1)
-            throw new OutOfRangeException();
+            throw new CalculatorException();
 
         if (x == 0)
             return Math.PI / 2;
@@ -31,9 +32,9 @@ public class Functions {
         return Math.PI / 2 - result;
     }
 
-    public static double semifactorial(int x) throws OutOfRangeException {
+    public static double semifactorial(int x) throws CalculatorException {
     	if (x < 0)
-    		throw new OutOfRangeException();
+    		throw new CalculatorException("MATH ERROR");
     	
         int result = 1;
 
@@ -127,7 +128,7 @@ public class Functions {
     
     public static double std_dev(ArrayList<Double> dataSet) throws EmptyInputException {
     	if (dataSet.isEmpty())
-    		throw new EmptyInputException();
+    		throw new EmptyInputException("Empty input detected.");
     	double sd = 0;
     	double sum = 0;
     	for (double i : dataSet)
@@ -146,7 +147,7 @@ public class Functions {
      */
     public static double meanAbsoluteDeviation(ArrayList<Double> dataSet) throws EmptyInputException {
     	if (dataSet.isEmpty())
-    		throw new EmptyInputException();
+    		throw new EmptyInputException("Empty input detected.");
     	
     	double avg = 0;
         for (double x : dataSet) {
@@ -211,7 +212,7 @@ public class Functions {
      * @param x:a real variable
      * @return :a real number with range (-infinity,infinity)
      * */
-    public static double sinh(double x) throws OutOfRangeException{
+    public static double sinh(double x){
         double e1 = natural_exponential(x); // calculate the e^x
         double e2 = natural_exponential(-x);// calculate the e^-x
         double sinh = (e1-e2)/2;
