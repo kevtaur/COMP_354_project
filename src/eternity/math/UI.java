@@ -19,7 +19,9 @@ public class UI {
         menuLoop:
         while(true){
             System.out.println("Let us know what you want to do: ");
-            System.out.println("List");
+            System.out.println("Enter 1 for Algebra calculator \n" +
+                    "Enter 2 for Finance calculator (Mean Absolute Deviation and Standard Deviation \n" +
+                    "Enter 3 to exit the program");
             String menuInput = scanner.nextLine();
             menuInput = menuInput.replaceAll("\\s","");
             try {
