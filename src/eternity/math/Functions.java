@@ -1,9 +1,11 @@
 package eternity.math;
 
+import java.util.ArrayList;
+
 import com.expression.parser.exception.CalculatorException;
-import eternity.exception.OutOfRangeException;
+
 import eternity.exception.EmptyInputException;
-import java.util.*;
+import eternity.exception.OutOfRangeException;
 
 public class Functions {
 

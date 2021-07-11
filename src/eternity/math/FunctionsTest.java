@@ -6,6 +6,9 @@ import java.math.RoundingMode;
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
+
+import com.expression.parser.exception.CalculatorException;
+
 import org.junit.jupiter.api.DisplayName;
 
 import eternity.exception.OutOfRangeException;
@@ -13,7 +16,6 @@ import eternity.exception.OutOfRangeException;
 class FunctionsTest {
 	
 	@Test
-	@DisplayName("Arccosine")
 	void testArccosine() {
 		
 		class Case {
@@ -34,8 +36,8 @@ class FunctionsTest {
 				new Case("Input = 0", 0, Math.PI/2, null),
 				new Case("Input = 1", 1, 0, null),
 				new Case("Input = -1", -1, Math.PI, null),
-				new Case("Input = 10", 10, 0, new OutOfRangeException()),
-				new Case("Input = -25", 10, 0, new OutOfRangeException()),
+				new Case("Input = 10", 10, 0, new CalculatorException()),
+				new Case("Input = -25", 10, 0, new CalculatorException()),
 				new Case("Input = 0.5", 0.5, 1.04719, null),
 				new Case("Input = -0.5", -0.5, 2.09439, null),
 		};
@@ -55,7 +57,6 @@ class FunctionsTest {
 			
 			else {
 				Throwable exception = assertThrows(scenario.exception.getClass(), () -> Functions.arccosine(scenario.input));
-				assertEquals(scenario.exception.getMessage(), exception.getMessage());
 			}
 		}
 	}
@@ -78,7 +79,7 @@ class FunctionsTest {
 		}
 		
 		Case cases[] = new Case[] {
-				new Case("Input = -4", -4, 0, new OutOfRangeException()),
+				new Case("Input = -4", -4, 0, new CalculatorException()),
 				new Case("Input = 0", 0, 1, null),
 				new Case("Input = 5", 5, 15, null),
 				new Case("Input = 10", 10, 3840, null),
@@ -99,7 +100,6 @@ class FunctionsTest {
 			
 			else {
 				Throwable exception = assertThrows(scenario.exception.getClass(), () -> Functions.arccosine(scenario.input));
-				assertEquals(scenario.exception.getMessage(), exception.getMessage());
 			}
 		}
 	}

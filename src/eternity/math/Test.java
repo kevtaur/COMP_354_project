@@ -19,7 +19,7 @@ public class Test {
 			System.out.println(Functions.arccosine(-0.5));
 			System.out.println(Functions.arccosine(-1));
 		}
-		catch (OutOfRangeException e) {
+		catch (Exception e) {
 			System.out.println("MATH ERROR");
 		}
 		
