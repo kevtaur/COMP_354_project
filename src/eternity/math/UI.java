@@ -17,11 +17,12 @@ public class UI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to ETERNITY!");
         menuLoop:
-        while(true){
-            System.out.println("Let us know what you want to do: ");
-            System.out.println("Enter 1 for Algebra calculator \n" +
-                    "Enter 2 for Finance calculator (Mean Absolute Deviation and Standard Deviation \n" +
-                    "Enter 3 to exit the program");
+        while(true) {
+        	System.out.println("\nMain Menu");
+            System.out.println(" - 1 for Algebra calculator \n" +
+			                   " - 2 for Finance calculator (Mean Absolute Deviation and Standard Deviation) \n" +
+			                   " - 3 to exit the program");
+            System.out.print("Let us know what you want to do: ");
             String menuInput = scanner.nextLine();
             menuInput = menuInput.replaceAll("\\s","");
             try {
@@ -32,10 +33,11 @@ public class UI {
                     algebraLoop:
                     while (true) {
                         try {
-                            System.out.println("Please enter your equation and hit enter: \n" +
-                                    "Enter m to go back to main menu \n" +
-                                    "Enter h to see your history \n" +
-                                    "Enter q to exit the program");
+                        	System.out.println("\nAlgebra Calculator");
+                            System.out.println(" - m to go back to main menu \n" +
+			                                   " - h to see your history \n" +
+			                                   " - q to exit the program");
+                            System.out.print("Please enter your equation and hit enter: ");
                             String algebraInput = scanner.nextLine();
                             algebraInput = algebraInput.replaceAll("\\s","");
                             if (algebraInput.equals("") || algebraInput == null) {
@@ -74,12 +76,13 @@ public class UI {
                     financeLoop:
                     while(true) {
                         try {
-                            System.out.println("Please select the function that you want:  \n" +
-                                    "Enter 1 for Mean Absolute Deviation \n" +
-                                    "Enter 2 for Standard Deviation \n" +
-                                    "Enter m to go back to main menu \n" +
-                                    "Enter h to see your history \n" +
-                                    "Enter q to exit the program");
+                        	System.out.println("\nFinance Calculator");
+                            System.out.println(" - 1 for Mean Absolute Deviation \n" +
+			                                   " - 2 for Standard Deviation \n" +
+			                                   " - m to go back to main menu \n" +
+			                                   " - h to see your history \n" +
+			                                   " - q to exit the program");
+                            System.out.print("Please select the function that you want: ");
                             String financeInput = scanner.nextLine();
                             financeInput = financeInput.replaceAll("\\s","");
                             if (financeInput.equals("") || financeInput == null) {
@@ -158,9 +161,9 @@ public class UI {
                                 while(true){
                                     try{
                                         System.out.println("Please enter the series of your inputs separated by a space, and hit Enter when done: \n"+
-                                                "Enter m to go back to the previous menu \n" +
-                                                "Enter h to see your history \n" +
-                                                "Enter q to exit the program");
+                                                "\tm to go back to the previous menu \n" +
+                                                "\th to see your history \n" +
+                                                "\tq to exit the program");
                                         String STDinput = scanner.nextLine();
                                         if (STDinput.equalsIgnoreCase("") || STDinput == null){
                                             throw new EmptyInputException("Empty input detected");
@@ -178,7 +181,7 @@ public class UI {
                                             }
                                             System.out.println();
                                         }
-                                        else if (STDinput.matches("[0-9\\s.]+")){
+                                        else if (STDinput.matches("[0-9\\s.]+")) {
                                             List<String> listOfStringInputs = new ArrayList<>();
                                             listOfStringInputs = Arrays.asList(STDinput.split("\\s"));
                                             ArrayList<Double> listOfDoubleInputs = new ArrayList<>();
@@ -200,7 +203,7 @@ public class UI {
                                         } else
                                             throw new InvalidInputException("Invalid input");
                                     }
-                                    catch (EmptyInputException e){
+                                    catch (EmptyInputException e) {
                                         System.out.println(e.getMessage());
                                     }
                                     catch (InvalidInputException e){
@@ -211,11 +214,11 @@ public class UI {
                             else {
                                 try{
                                     throw new InvalidInputException("Empty input detected.");
-                                }catch (InvalidInputException e){
+                                }catch (InvalidInputException e) {
                                     System.out.println(e.getMessage());}
                             }
                         }
-                        catch (EmptyInputException e){
+                        catch (EmptyInputException e) {
                             System.out.println(e.getMessage());
                         }
                     }
@@ -226,7 +229,7 @@ public class UI {
                     System.exit(0);
                 }
             }
-            catch (EmptyInputException e){
+            catch (EmptyInputException e) {
                 System.out.println(e.getMessage());
             }
         }
