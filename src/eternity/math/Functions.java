@@ -159,7 +159,7 @@ public class Functions {
         
         double madSum = 0;
 		for (double x : dataSet) {
-			if (x < avg)			// absolute deviation from data point to calculated mean
+			if (x < avg)			// absolute value of difference from data point to calculated mean
 				madSum += avg - x;
 			else
 				madSum += x - avg;
@@ -210,7 +210,7 @@ public class Functions {
 	}
 	
 	/**
-     * Hyperbolic Function( sinh(x) )
+     * Hyperbolic Function (sinh(x))
      * @param x:a real variable
      * @return :a real number with range (-infinity,infinity)
      * */
