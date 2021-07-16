@@ -32,6 +32,12 @@ public class Test {
 			test.add(9.4);
 			test.add(49.3);
 			System.out.println(Functions.std_dev(test));
+			ArrayList<Double> test1 = new ArrayList<>();
+			test1.add(1.0);
+			test1.add(1.0);
+			test1.add(1.0);
+			test1.add(1.0);
+			System.out.println(Functions.std_dev(test1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
