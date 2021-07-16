@@ -139,7 +139,9 @@ class FunctionsTest {
 		}
 		Case cases[] = new Case[] {
 			new Case("Input = 0.0, 1.4", new ArrayList<Double>(Arrays.asList(0.0,1.4)), 0.7, null),
-			new Case("Input = -5.2, 3.2, 122.235, 12.0, -6.0, -1000000.9", new ArrayList<Double>(Arrays.asList(-5.2, 3.2, 122.235, 12.0, -6.0, -1000000.9)), 277785.04083333333, null),
+			new Case("Input = -5.2, 3.6, 122.235, 12.0, -6.0, -1000000.9", new ArrayList<Double>(Arrays.asList(-5.2, 3.2, 122.235, 12.0, -6.0, -1000000.9)), 277785.04083333333, null),
+			new Case("Input = 0.0", new ArrayList<Double>(Arrays.asList(0.0)), 0, null),
+			new Case("Input = null", null, 0, new Exception()),
 			new Case("Input = ", new ArrayList<Double>(), 0, new EmptyInputException("Empty input detected."))
 		};
 		
