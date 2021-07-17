@@ -4,7 +4,6 @@ import com.expression.parser.Parser;
 import com.expression.parser.exception.CalculatorException;
 import eternity.exception.EmptyInputException;
 import eternity.exception.InvalidInputException;
-import eternity.exception.MathErrorException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,8 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UI {
-    private static List<String> algebraHistory = new ArrayList<>();
-    private static List<String> financeHistory = new ArrayList<>();
+    private static List<String> history = new ArrayList<>();
+//    private static List<String> financeHistory = new ArrayList<>();
     private static Decimal decimal = new Decimal();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -49,12 +48,11 @@ public class UI {
                                 break algebraLoop;
                             } else if (algebraInput.equalsIgnoreCase("q")) {
                                 System.out.println("Thank you for using ETERNITY.");
-                                algebraHistory.clear();
-                                financeHistory.clear();
+                                history.clear();
                                 System.exit(0);
                             } else if (algebraInput.equalsIgnoreCase("h")) {
                                 System.out.println("Here is the history of your previous equations: ");
-                                for (String s : algebraHistory) {
+                                for (String s : history) {
                                     System.out.println(s);
                                 }
                                 System.out.println();
@@ -64,7 +62,7 @@ public class UI {
                                     Double answerWithDecimal = decimal.getResultDecimal(rawAnswer);
                                     String result = algebraInput + " = " + answerWithDecimal;
                                     System.out.println(result);
-                                    algebraHistory.add(result);
+                                    history.add(result);
                                 } catch (CalculatorException e) {
                                     System.out.println(e.getMessage());
                                 } catch (NumberFormatException e){
@@ -97,12 +95,11 @@ public class UI {
                                 break financeLoop;
                             } else if (financeInput.equalsIgnoreCase("q")) {
                                 System.out.println("Thank you for using ETERNITY.");
-                                algebraHistory.clear();
-                                financeHistory.clear();
+                                history.clear();
                                 System.exit(0);
                             } else if (financeInput.equalsIgnoreCase("h")) {
                                 System.out.println("Here is the history of your previous equations: ");
-                                for (String s : financeHistory) {
+                                for (String s : history) {
                                     System.out.println(s);
                                 }
                                 System.out.println();
@@ -122,12 +119,11 @@ public class UI {
                                             break MADLoop;
                                         } else if (MADinput.equalsIgnoreCase("q")) {
                                             System.out.println("Thank you for using ETERNITY.");
-                                            algebraHistory.clear();
-                                            financeHistory.clear();
+                                            history.clear();
                                             System.exit(0);
                                         } else if (MADinput.equalsIgnoreCase("h")) {
                                             System.out.println("Here is the history of your previous equations: ");
-                                            for (String s : financeHistory) {
+                                            for (String s : history) {
                                                 System.out.println(s);
                                             }
                                             System.out.println();
@@ -150,7 +146,7 @@ public class UI {
                                             }
                                             Double answerWithDecimal = decimal.getResultDecimal(rawAnswer);
                                             result += " = " + answerWithDecimal;
-                                            financeHistory.add(result);
+                                            history.add(result);
                                             System.out.println(result);
                                         } else
                                             throw new InvalidInputException("Invalid input");
@@ -178,12 +174,11 @@ public class UI {
                                             break STDLoop;
                                         } else if (STDinput.equalsIgnoreCase("q")) {
                                             System.out.println("Thank you for using ETERNITY.");
-                                            algebraHistory.clear();
-                                            financeHistory.clear();
+                                            history.clear();
                                             System.exit(0);
                                         } else if (STDinput.equalsIgnoreCase("h")) {
                                             System.out.println("Here is the history of your previous equations: ");
-                                            for (String s : financeHistory) {
+                                            for (String s : history) {
                                                 System.out.println(s);
                                             }
                                             System.out.println();
@@ -206,7 +201,7 @@ public class UI {
                                             }
                                             Double answerWithDecimal = decimal.getResultDecimal(rawAnswer);
                                             result += " = " + answerWithDecimal;
-                                            financeHistory.add(result);
+                                            history.add(result);
                                             System.out.println(result);
                                         } else
                                             throw new InvalidInputException("Invalid input");
@@ -286,8 +281,7 @@ public class UI {
                     }
                 } else if (menuInput.equalsIgnoreCase("q")) {
                     System.out.println("Thank you for using ETERNITY.");
-                    algebraHistory.clear();
-                    financeHistory.clear();
+                    history.clear();
                     System.exit(0);
                 } else {
                     System.out.println("Invalid input");
