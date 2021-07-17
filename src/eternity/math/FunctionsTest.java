@@ -37,8 +37,8 @@ class FunctionsTest {
 				new Case("Input = 0", 0, Math.PI/2, null),
 				new Case("Input = 1", 1, 0, null),
 				new Case("Input = -1", -1, Math.PI, null),
-				new Case("Input = 10", 10, 0, new MathErrorException()),
-				new Case("Input = -25", 10, 0, new MathErrorException()),
+				new Case("Input = 10", 10, 0, new CalculatorException()),
+				new Case("Input = -25", 10, 0, new CalculatorException()),
 				new Case("Input = 0.5", 0.5, 1.04719, null),
 				new Case("Input = -0.5", -0.5, 2.09439, null),
 		};
@@ -80,7 +80,7 @@ class FunctionsTest {
 		}
 		
 		Case cases[] = new Case[] {
-				new Case("Input = -4", -4, 0, new MathErrorException()),
+				new Case("Input = -4", -4, 0, new CalculatorException()),
 				new Case("Input = 0", 0, 1, null),
 				new Case("Input = 5", 5, 15, null),
 				new Case("Input = 10", 10, 3840, null),
@@ -137,7 +137,7 @@ class FunctionsTest {
 				new Case("Input = 7*(-3^3)", 7, -3, 3, -189,null),
 				new Case("Input = 10*(2.5^2.5)", 10, 2.5,2.5, 98.82118, null),
 				new Case("Input = 3.5*(3.5^-2)", 3.5, 3.5, -2, 0.285714,  null),
-				new Case("Input = -5*(-2^-0.5)", -5, -2,-0.5, 0 ,new MathErrorException("MATH ERROR")),
+				new Case("Input = -5*(-2^-0.5)", -5, -2,-0.5, 0 ,new CalculatorException("MATH ERROR")),
 		};
 		System.out.println("\nTest: Exponential function");
 		for (Case scenario : cases) {

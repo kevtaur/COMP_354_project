@@ -2,7 +2,7 @@ package eternity.exception;
 
 public class EmptyInputException extends Exception {
 	public EmptyInputException() {
-		super();
+		super("Empty input detected");
 	}
 	
 	public EmptyInputException(String message) {
