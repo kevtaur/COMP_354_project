@@ -20,7 +20,7 @@ public class Constants {
 	public static final String TANH = "tanh";
 
 	/** The Constant ASIN. */
-	public static final String ASIN = "asin";
+	public static final String ASIN = "arcsin";
 
 	/** The Constant ACOS. */
 	public static final String ACOS = "arccos";

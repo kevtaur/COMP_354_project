@@ -246,17 +246,9 @@ public class FunctionX {
 						}
 					} else if (Constants.ACOS.equals(function)) {
 						if (degree) {
-							try{
-							value = Functions.arccosine(eval(new_f_x, xi)) * (180 / StrictMath.PI);}
-							catch (MathErrorException e){
-								System.out.println(e.getMessage());
-							}
+							value = Functions.arccosine(eval(new_f_x, xi)) * (180 / StrictMath.PI);
 						} else {
-							try{
-							value = Functions.arccosine(eval(new_f_x, xi));}
-							catch (MathErrorException e){
-								System.out.println(e.getMessage());
-							}
+							value = Functions.arccosine(eval(new_f_x, xi));
 						}
 					} else if (Constants.ATAN.equals(function)) {
 						if (degree) {
@@ -267,6 +259,7 @@ public class FunctionX {
 					} else if (Constants.LN.equals(function)) {
 						value = StrictMath.log(eval(new_f_x, xi));
 					} else if (Constants.LOG.equals(function)) {
+						if(new_f_x.contains(",")){
 						String[] stringArr = new_f_x.split(",");
 						String base = stringArr[0];
 						String exponent = stringArr[1];
@@ -278,7 +271,8 @@ public class FunctionX {
 						catch (OutOfRangeException e){
 							System.out.println("MATH ERROR");
 						}
-//						value = StrictMath.log10(eval(new_f_x, xi));
+						} else
+						value = StrictMath.log10(eval(new_f_x, xi));
 					} else if (Constants.SQRT.equals(function)) {
 						value = StrictMath.sqrt(eval(new_f_x, xi));
 					} else if (Constants.CBRT.equals(function)) {
@@ -445,7 +439,7 @@ public class FunctionX {
 		}
 
 		if (count != 0) {
-			throw new CalculatorException("( is not finished");
+			throw new CalculatorException("'(' is not finished");
 		}
 		return result;
 	}

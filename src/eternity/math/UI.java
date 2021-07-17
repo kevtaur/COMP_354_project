@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class UI {
     private static List<String> algebraHistory = new ArrayList<>();
     private static List<String> financeHistory = new ArrayList<>();
+    private static Decimal decimal = new Decimal();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to ETERNITY!");
@@ -22,7 +23,8 @@ public class UI {
         	System.out.println("\nMain Menu");
             System.out.println(" - 1 for Algebra calculator \n" +
 			                   " - 2 for Finance calculator (Mean Absolute Deviation and Standard Deviation) \n" +
-			                   " - 3 to exit the program");
+                                " - 3 for Settings \n" +
+			                   " - q to exit the program");
             System.out.print("Let us know what you want to do: ");
             String menuInput = scanner.nextLine();
             menuInput = menuInput.replaceAll("\\s","");
@@ -42,7 +44,7 @@ public class UI {
                             String algebraInput = scanner.nextLine();
                             algebraInput = algebraInput.replaceAll("\\s","");
                             if (algebraInput.equals("") || algebraInput == null) {
-                                throw new EmptyInputException("Empty input detected.");
+                                throw new EmptyInputException();
                             } else if (algebraInput.equalsIgnoreCase("m")) {
                                 break algebraLoop;
                             } else if (algebraInput.equalsIgnoreCase("q")) {
@@ -58,12 +60,15 @@ public class UI {
                                 System.out.println();
                             } else {
                                 try {
-                                    Double answer = Parser.eval(algebraInput).getValue();
-                                    String result = algebraInput + " = " + answer;
+                                    Double rawAnswer = Parser.eval(algebraInput).getValue();
+                                    Double answerWithDecimal = decimal.getResultDecimal(rawAnswer);
+                                    String result = algebraInput + " = " + answerWithDecimal;
                                     System.out.println(result);
                                     algebraHistory.add(result);
                                 } catch (CalculatorException e) {
                                     System.out.println(e.getMessage());
+                                } catch (NumberFormatException e){
+                                    System.out.println("MATH ERROR");
                                 }
                             }
                         }
@@ -87,7 +92,7 @@ public class UI {
                             String financeInput = scanner.nextLine();
                             financeInput = financeInput.replaceAll("\\s","");
                             if (financeInput.equals("") || financeInput == null) {
-                                throw new EmptyInputException("Empty input detected.");
+                                throw new EmptyInputException();
                             } else if (financeInput.equalsIgnoreCase("m")) {
                                 break financeLoop;
                             } else if (financeInput.equalsIgnoreCase("q")) {
@@ -112,7 +117,7 @@ public class UI {
                                                 "Enter q to exit the program");
                                         String MADinput = scanner.nextLine();
                                         if (MADinput.equalsIgnoreCase("") || MADinput == null){
-                                            throw new EmptyInputException("Empty input detected");
+                                            throw new EmptyInputException();
                                         } else if (MADinput.equalsIgnoreCase("m")) {
                                             break MADLoop;
                                         } else if (MADinput.equalsIgnoreCase("q")) {
@@ -132,7 +137,7 @@ public class UI {
                                             listOfStringInputs = Arrays.asList(MADinput.split("\\s"));
                                             ArrayList<Double> listOfDoubleInputs = new ArrayList<>();
                                             listOfStringInputs.forEach(string -> listOfDoubleInputs.add(Double.valueOf(string)));
-                                            Double answer = Functions.meanAbsoluteDeviation(listOfDoubleInputs);
+                                            Double rawAnswer = Functions.meanAbsoluteDeviation(listOfDoubleInputs);
                                             String result = "Mean Absolute Deviation of (";
                                             for (int i=0; i<listOfStringInputs.size(); i++){
                                                 result += listOfStringInputs.get(i);
@@ -143,7 +148,8 @@ public class UI {
                                                     result += ")";
                                                 }
                                             }
-                                            result += " = " + answer;
+                                            Double answerWithDecimal = decimal.getResultDecimal(rawAnswer);
+                                            result += " = " + answerWithDecimal;
                                             financeHistory.add(result);
                                             System.out.println(result);
                                         } else
@@ -167,7 +173,7 @@ public class UI {
                                                 "\tq to exit the program");
                                         String STDinput = scanner.nextLine();
                                         if (STDinput.equalsIgnoreCase("") || STDinput == null){
-                                            throw new EmptyInputException("Empty input detected");
+                                            throw new EmptyInputException();
                                         } else if (STDinput.equalsIgnoreCase("m")) {
                                             break STDLoop;
                                         } else if (STDinput.equalsIgnoreCase("q")) {
@@ -187,7 +193,7 @@ public class UI {
                                             listOfStringInputs = Arrays.asList(STDinput.split("\\s"));
                                             ArrayList<Double> listOfDoubleInputs = new ArrayList<>();
                                             listOfStringInputs.forEach(string -> listOfDoubleInputs.add(Double.valueOf(string)));
-                                            Double answer = Functions.std_dev(listOfDoubleInputs);
+                                            Double rawAnswer = Functions.std_dev(listOfDoubleInputs);
                                             String result = "Standard Deviation of (";
                                             for (int i=0; i<listOfStringInputs.size(); i++){
                                                 result += listOfStringInputs.get(i);
@@ -198,7 +204,8 @@ public class UI {
                                                     result += ")";
                                                 }
                                             }
-                                            result += " = " + answer;
+                                            Double answerWithDecimal = decimal.getResultDecimal(rawAnswer);
+                                            result += " = " + answerWithDecimal;
                                             financeHistory.add(result);
                                             System.out.println(result);
                                         } else
@@ -210,7 +217,7 @@ public class UI {
                                     catch (InvalidInputException e){
                                         System.out.println(e.getMessage());
                                     }
-                                    catch (MathErrorException e){
+                                    catch (CalculatorException e){
                                         System.out.println(e.getMessage());
                                     }
                                 }
@@ -226,11 +233,64 @@ public class UI {
                             System.out.println(e.getMessage());
                         }
                     }
-                } else if (menuInput.equals("3")) {
+                } else if (menuInput.equalsIgnoreCase("3")) {
+                    settingLoop:
+                    while(true){
+                        System.out.println("\nSettings");
+                        System.out.println(" - 1 for Decimals \n" +
+                                " - 2 for Degree/Radian");
+                        System.out.println("Please select your option: ");
+                        String settingInput = scanner.nextLine();
+
+                        if (settingInput.equalsIgnoreCase("") || settingInput == null){
+                            throw new EmptyInputException();
+                        } else if (settingInput.equalsIgnoreCase("1")) {
+                            decimalLoop:
+                            while(true){
+                                System.out.println("\nDecimals");
+                                System.out.println("Please enter the number of decimal places you would like your result to have: ");
+                                String decimalStringInput = scanner.nextLine();
+                                int decimalIntInput =0;
+                                try {
+                                    decimalIntInput = Integer.parseInt(decimalStringInput);
+                                    decimal.setDecimal(decimalIntInput);
+                                    System.out.println("The calculator has been set to "+ decimalIntInput +" decimal places.");
+                                    break settingLoop;
+                                } catch (NumberFormatException e){
+                                    System.out.println("Invalid input");
+                                }
+                            }
+                        } else if (settingInput.equalsIgnoreCase("2")) {
+                            degreeRadLoop:
+                            while(true){
+                                System.out.println("\nDegree/Radian");
+                                System.out.println(" - 1 for Degree \n" +
+                                        " - 2 for Radian \n");
+                                String degRadStringInput = scanner.nextLine();
+                                if (degRadStringInput.equalsIgnoreCase("") || degRadStringInput==null){
+                                    throw new EmptyInputException();
+                                } else if (degRadStringInput.equalsIgnoreCase("1")){
+                                    DegreeRadian.setRadian(false);
+                                    System.out.println("The calculator has been set to Degree mode");
+                                    break settingLoop;
+                                } else if (degRadStringInput.equalsIgnoreCase("2")) {
+                                    DegreeRadian.setRadian(true);
+                                    System.out.println("The calculator has been set to Radian mode");
+                                    break settingLoop;
+                                } else
+                                    System.out.println("Invalid input");
+                            }
+                        } else {
+                            System.out.println("Invalid input");
+                        }
+                    }
+                } else if (menuInput.equalsIgnoreCase("q")) {
                     System.out.println("Thank you for using ETERNITY.");
                     algebraHistory.clear();
                     financeHistory.clear();
                     System.exit(0);
+                } else {
+                    System.out.println("Invalid input");
                 }
             }
             catch (EmptyInputException e) {

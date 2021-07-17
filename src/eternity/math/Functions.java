@@ -14,16 +14,16 @@ public class Functions {
      * @param x: Domain [-1, 1]
      * @return: Range [0, PI], in Rad
      */
-    public static double arccosine(double x) throws MathErrorException {
+    public static double arccosine(double x) throws CalculatorException {
         if (x < -1 || x > 1)
-            throw new MathErrorException();
+            throw new CalculatorException("MATH ERROR");
 
         if (x == 0)
-            return Math.PI / 2;
+            return (DegreeRadian.isRadian? Math.PI / 2 : DegreeRadian.radianToDegree(Math.PI / 2));
         else if (x == 1)
             return 0;
         else if (x == -1)
-            return Math.PI;
+            return (DegreeRadian.isRadian? Math.PI : DegreeRadian.radianToDegree(Math.PI));
 
         // Taylor Series (14th approximation)
         double result = x;
@@ -32,12 +32,12 @@ public class Functions {
             result += (semifactorial(2 * n - 1) / semifactorial(2 * n)) * (exponential(1, x, 2 * n + 1) / (2 * n + 1));
         }
 
-        return Math.PI / 2 - result;
+        return (DegreeRadian.isRadian? Math.PI / 2 - result : DegreeRadian.radianToDegree((Math.PI / 2 - result)));
     }
 
-    public static double semifactorial(int x) throws MathErrorException {
+    public static double semifactorial(int x) throws CalculatorException {
     	if (x < 0)
-    		throw new MathErrorException("MATH ERROR");
+    		throw new CalculatorException("MATH ERROR");
     	
         int result = 1;
 
@@ -87,7 +87,7 @@ public class Functions {
         }
     }
 
-    private static double ln_derivative(double x, int derivDegree) throws MathErrorException{
+    private static double ln_derivative(double x, int derivDegree) throws CalculatorException{
         if (derivDegree == 1)
             return exponential(1,x, -1);
         else {
@@ -107,14 +107,14 @@ public class Functions {
      * @return real number
      * Input restraint: no negative base with decimal exponent
      */
-    public static double exponential(double a, double b, double x)  throws MathErrorException{
+    public static double exponential(double a, double b, double x)  throws CalculatorException{
         Double result = 0.0;
         if (b>=0)
             result = a * natural_exponential(x * ln(b));
         else
             result = a* Math.pow(b,x);
         if (result.isNaN())
-            throw new MathErrorException("MATH ERROR");
+            throw new CalculatorException("MATH ERROR");
         else return result;
     }
 
@@ -133,7 +133,7 @@ public class Functions {
         return ret;
     }
     
-    public static double std_dev(ArrayList<Double> dataSet) throws EmptyInputException, MathErrorException {
+    public static double std_dev(ArrayList<Double> dataSet) throws EmptyInputException, CalculatorException {
     	if (dataSet.isEmpty())
     		throw new EmptyInputException("Empty input detected.");
     	double sd = 0;
