@@ -2,6 +2,7 @@ package com.expression.parser.function;
 
 import com.expression.parser.ParserManager;
 import com.expression.parser.exception.CalculatorException;
+import eternity.exception.MathErrorException;
 import eternity.exception.OutOfRangeException;
 import eternity.math.Functions;
 
@@ -245,9 +246,17 @@ public class FunctionX {
 						}
 					} else if (Constants.ACOS.equals(function)) {
 						if (degree) {
-							value = Functions.arccosine(eval(new_f_x, xi)) * (180 / StrictMath.PI);
+							try{
+							value = Functions.arccosine(eval(new_f_x, xi)) * (180 / StrictMath.PI);}
+							catch (MathErrorException e){
+								System.out.println(e.getMessage());
+							}
 						} else {
-							value = Functions.arccosine(eval(new_f_x, xi));
+							try{
+							value = Functions.arccosine(eval(new_f_x, xi));}
+							catch (MathErrorException e){
+								System.out.println(e.getMessage());
+							}
 						}
 					} else if (Constants.ATAN.equals(function)) {
 						if (degree) {

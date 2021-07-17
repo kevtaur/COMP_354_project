@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.expression.parser.exception.CalculatorException;
 
 import eternity.exception.EmptyInputException;
+import eternity.exception.MathErrorException;
 import eternity.exception.OutOfRangeException;
 
 public class Functions {
@@ -13,9 +14,9 @@ public class Functions {
      * @param x: Domain [-1, 1]
      * @return: Range [0, PI], in Rad
      */
-    public static double arccosine(double x) throws CalculatorException {
+    public static double arccosine(double x) throws MathErrorException {
         if (x < -1 || x > 1)
-            throw new CalculatorException();
+            throw new MathErrorException();
 
         if (x == 0)
             return Math.PI / 2;
@@ -34,9 +35,9 @@ public class Functions {
         return Math.PI / 2 - result;
     }
 
-    public static double semifactorial(int x) throws CalculatorException {
+    public static double semifactorial(int x) throws MathErrorException {
     	if (x < 0)
-    		throw new CalculatorException("MATH ERROR");
+    		throw new MathErrorException("MATH ERROR");
     	
         int result = 1;
 
@@ -86,7 +87,7 @@ public class Functions {
         }
     }
 
-    private static double ln_derivative(double x, int derivDegree) throws OutOfRangeException{
+    private static double ln_derivative(double x, int derivDegree) throws MathErrorException{
         if (derivDegree == 1)
             return exponential(1,x, -1);
         else {
@@ -106,11 +107,15 @@ public class Functions {
      * @return real number
      * Input restraint: no negative base with decimal exponent
      */
-    public static double exponential(double a, double b, double x) {
+    public static double exponential(double a, double b, double x)  throws MathErrorException{
+        Double result = 0.0;
         if (b>=0)
-            return a * natural_exponential(x * ln(b));
+            result = a * natural_exponential(x * ln(b));
         else
-            return a* power(b,(int)x);
+            result = a* Math.pow(b,x);
+        if (result.isNaN())
+            throw new MathErrorException("MATH ERROR");
+        else return result;
     }
 
     public static double power(double x, int n){
@@ -128,7 +133,7 @@ public class Functions {
         return ret;
     }
     
-    public static double std_dev(ArrayList<Double> dataSet) throws EmptyInputException {
+    public static double std_dev(ArrayList<Double> dataSet) throws EmptyInputException, MathErrorException {
     	if (dataSet.isEmpty())
     		throw new EmptyInputException("Empty input detected.");
     	double sd = 0;
