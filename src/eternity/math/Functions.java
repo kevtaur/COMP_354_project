@@ -142,7 +142,7 @@ public class Functions {
     		sum += i;
     	double mean = sum / dataSet.size();
     	for (double num : dataSet)
-    		sd += exponential(1,num - mean, 2);
+    		sd += Math.pow(num - mean, 2);
     	sd = Math.sqrt(sd/dataSet.size());
     	return sd;
     }
