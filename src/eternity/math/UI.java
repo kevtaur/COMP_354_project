@@ -4,6 +4,7 @@ import com.expression.parser.Parser;
 import com.expression.parser.exception.CalculatorException;
 import eternity.exception.EmptyInputException;
 import eternity.exception.InvalidInputException;
+import eternity.exception.MathErrorException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -207,6 +208,9 @@ public class UI {
                                         System.out.println(e.getMessage());
                                     }
                                     catch (InvalidInputException e){
+                                        System.out.println(e.getMessage());
+                                    }
+                                    catch (MathErrorException e){
                                         System.out.println(e.getMessage());
                                     }
                                 }

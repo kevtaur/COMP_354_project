@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.RoundingMode;
 import java.math.BigDecimal;
 
+import eternity.exception.MathErrorException;
 import org.junit.jupiter.api.Test;
 
 import com.expression.parser.exception.CalculatorException;
@@ -36,8 +37,8 @@ class FunctionsTest {
 				new Case("Input = 0", 0, Math.PI/2, null),
 				new Case("Input = 1", 1, 0, null),
 				new Case("Input = -1", -1, Math.PI, null),
-				new Case("Input = 10", 10, 0, new CalculatorException()),
-				new Case("Input = -25", 10, 0, new CalculatorException()),
+				new Case("Input = 10", 10, 0, new MathErrorException()),
+				new Case("Input = -25", 10, 0, new MathErrorException()),
 				new Case("Input = 0.5", 0.5, 1.04719, null),
 				new Case("Input = -0.5", -0.5, 2.09439, null),
 		};
@@ -79,7 +80,7 @@ class FunctionsTest {
 		}
 		
 		Case cases[] = new Case[] {
-				new Case("Input = -4", -4, 0, new CalculatorException()),
+				new Case("Input = -4", -4, 0, new MathErrorException()),
 				new Case("Input = 0", 0, 1, null),
 				new Case("Input = 5", 5, 15, null),
 				new Case("Input = 10", 10, 3840, null),
@@ -111,7 +112,52 @@ class FunctionsTest {
 		fail("Not yet implemented");
 	}
 	*/
-	
+	@Test
+	void testExponential() {
+		class Case {
+			String name;
+			double a;
+			double b;
+			double x;
+			double expectedResult;
+			Exception exception;
+
+			public Case(String name, double a, double b, double x, double expectedResult, Exception exception) {
+				this.name = name;
+				this.a = a;
+				this.b = b;
+				this.x = x;
+				this.expectedResult = expectedResult;
+				this.exception = exception;
+			}
+		}
+
+		Case cases[] = new Case[] {
+				new Case("Input = 0.5*(2^-3)", 0.5, 2, -3, 0.0625,null),
+				new Case("Input = 7*(-3^3)", 7, -3, 3, -189,null),
+				new Case("Input = 10*(2.5^2.5)", 10, 2.5,2.5, 98.82118, null),
+				new Case("Input = 3.5*(3.5^-2)", 3.5, 3.5, -2, 0.285714,  null),
+				new Case("Input = -5*(-2^-0.5)", -5, -2,-0.5, 0 ,new MathErrorException("MATH ERROR")),
+		};
+		System.out.println("\nTest: Exponential function");
+		for (Case scenario : cases) {
+			System.out.println(scenario.name);
+
+			if (scenario.exception == null) {
+				try {
+					assertEquals(new BigDecimal(scenario.expectedResult).setScale(5, RoundingMode.HALF_UP).doubleValue(),
+							new BigDecimal(Functions.exponential(scenario.a, scenario.b, scenario.x)).setScale(5, RoundingMode.HALF_UP).doubleValue());
+				} catch (Exception e) {
+					fail("Unexpected exception thrown");
+				}
+			}
+
+			else {
+				Throwable exception = assertThrows(scenario.exception.getClass(), () -> Functions.exponential(scenario.a, scenario.b, scenario.x));
+				assertEquals(scenario.exception.getMessage(), exception.getMessage());
+			}
+		}
+	}
 	/**
 	@Test
 	void testStd_dev() {
