@@ -15,7 +15,8 @@ public class Decimal {
     }
 
     public double getResultDecimal(double rawResult) {
-        BigDecimal bd = new BigDecimal(rawResult).setScale(decimal, RoundingMode.HALF_UP);
+        String rawResultString = Double.toString(rawResult);
+        BigDecimal bd = new BigDecimal(rawResultString).setScale(decimal, RoundingMode.HALF_UP);
         double resultWithDecimal = bd.doubleValue();
         return resultWithDecimal;
     }
