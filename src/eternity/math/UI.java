@@ -5,26 +5,22 @@ import com.expression.parser.exception.CalculatorException;
 import eternity.exception.EmptyInputException;
 import eternity.exception.InvalidInputException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class UI {
     private static List<String> history = new ArrayList<>();
-//    private static List<String> financeHistory = new ArrayList<>();
+    private static List<String> quotes = new ArrayList<>();
+    private static List<String> authors = new ArrayList<>();
     private static Decimal decimal = new Decimal();
     public static void main(String[] args) {
+        readQuotes("src/eternity/resources/motivation.txt", quotes);
+        readQuotes("src/eternity/resources/authors", authors);
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to ETERNITY!");
+        printTitle();
         menuLoop:
         while(true) {
-        	System.out.println("\nMain Menu");
-            System.out.println(" - 1 for Algebra calculator \n" +
-			                   " - 2 for Finance calculator (Mean Absolute Deviation and Standard Deviation) \n" +
-                                " - 3 for Settings \n" +
-			                   " - q to exit the program");
-            System.out.print("Let us know what you want to do: ");
+            printMainMenu();
             String menuInput = scanner.nextLine();
             menuInput = menuInput.replaceAll("\\s","");
             try {
@@ -35,11 +31,7 @@ public class UI {
                     algebraLoop:
                     while (true) {
                         try {
-                        	System.out.println("\nAlgebra Calculator");
-                            System.out.println(" - m to go back to main menu \n" +
-			                                   " - h to see your history \n" +
-			                                   " - q to exit the program");
-                            System.out.print("Please enter your equation and hit enter: ");
+                            printAlgebraCalculatorMenu();
                             String algebraInput = scanner.nextLine();
                             algebraInput = algebraInput.replaceAll("\\s","");
                             if (algebraInput.equals("") || algebraInput == null) {
@@ -47,15 +39,9 @@ public class UI {
                             } else if (algebraInput.equalsIgnoreCase("m")) {
                                 break algebraLoop;
                             } else if (algebraInput.equalsIgnoreCase("q")) {
-                                System.out.println("Thank you for using ETERNITY.");
-                                history.clear();
-                                System.exit(0);
+                                printClosingMessage();
                             } else if (algebraInput.equalsIgnoreCase("h")) {
-                                System.out.println("Here is the history of your previous equations: ");
-                                for (String s : history) {
-                                    System.out.println(s);
-                                }
-                                System.out.println();
+                                printHistory();
                             } else {
                                 try {
                                     Double rawAnswer = Parser.eval(algebraInput).getValue();
@@ -80,13 +66,7 @@ public class UI {
                     financeLoop:
                     while(true) {
                         try {
-                        	System.out.println("\nFinance Calculator");
-                            System.out.println(" - 1 for Mean Absolute Deviation \n" +
-			                                   " - 2 for Standard Deviation \n" +
-			                                   " - m to go back to main menu \n" +
-			                                   " - h to see your history \n" +
-			                                   " - q to exit the program");
-                            System.out.print("Please select the function that you want: ");
+                            printFinanceCalculatorMenu();
                             String financeInput = scanner.nextLine();
                             financeInput = financeInput.replaceAll("\\s","");
                             if (financeInput.equals("") || financeInput == null) {
@@ -94,39 +74,24 @@ public class UI {
                             } else if (financeInput.equalsIgnoreCase("m")) {
                                 break financeLoop;
                             } else if (financeInput.equalsIgnoreCase("q")) {
-                                System.out.println("Thank you for using ETERNITY.");
-                                history.clear();
-                                System.exit(0);
+                                printClosingMessage();
                             } else if (financeInput.equalsIgnoreCase("h")) {
-                                System.out.println("Here is the history of your previous equations: ");
-                                for (String s : history) {
-                                    System.out.println(s);
-                                }
-                                System.out.println();
+                                printHistory();
                             } else if (financeInput.equalsIgnoreCase("1")){
                                 // start MAD
                                 MADLoop:
                                 while(true){
                                     try{
-                                        System.out.println("Please enter the series of your inputs separated by a space, and hit Enter when done: \n"+
-                                                "Enter m to go back to the previous menu \n" +
-                                                "Enter h to see your history \n" +
-                                                "Enter q to exit the program");
+                                        printMADMenu();
                                         String MADinput = scanner.nextLine();
                                         if (MADinput.equalsIgnoreCase("") || MADinput == null){
                                             throw new EmptyInputException();
                                         } else if (MADinput.equalsIgnoreCase("m")) {
                                             break MADLoop;
                                         } else if (MADinput.equalsIgnoreCase("q")) {
-                                            System.out.println("Thank you for using ETERNITY.");
-                                            history.clear();
-                                            System.exit(0);
+                                            printClosingMessage();
                                         } else if (MADinput.equalsIgnoreCase("h")) {
-                                            System.out.println("Here is the history of your previous equations: ");
-                                            for (String s : history) {
-                                                System.out.println(s);
-                                            }
-                                            System.out.println();
+                                            printHistory();
                                         }
                                         else if (MADinput.matches("[0-9\\s.]+")){
                                             List<String> listOfStringInputs = new ArrayList<>();
@@ -163,25 +128,16 @@ public class UI {
                                 STDLoop:
                                 while(true){
                                     try{
-                                        System.out.println("Please enter the series of your inputs separated by a space, and hit Enter when done: \n"+
-                                                "\tm to go back to the previous menu \n" +
-                                                "\th to see your history \n" +
-                                                "\tq to exit the program");
+                                        printSTDMenu();
                                         String STDinput = scanner.nextLine();
                                         if (STDinput.equalsIgnoreCase("") || STDinput == null){
                                             throw new EmptyInputException();
                                         } else if (STDinput.equalsIgnoreCase("m")) {
                                             break STDLoop;
                                         } else if (STDinput.equalsIgnoreCase("q")) {
-                                            System.out.println("Thank you for using ETERNITY.");
-                                            history.clear();
-                                            System.exit(0);
+                                            printClosingMessage();
                                         } else if (STDinput.equalsIgnoreCase("h")) {
-                                            System.out.println("Here is the history of your previous equations: ");
-                                            for (String s : history) {
-                                                System.out.println(s);
-                                            }
-                                            System.out.println();
+                                            printHistory();
                                         }
                                         else if (STDinput.matches("[0-9\\s.]+")) {
                                             List<String> listOfStringInputs = new ArrayList<>();
@@ -231,10 +187,7 @@ public class UI {
                 } else if (menuInput.equalsIgnoreCase("3")) {
                     settingLoop:
                     while(true){
-                        System.out.println("\nSettings");
-                        System.out.println(" - 1 for Decimals \n" +
-                                " - 2 for Degree/Radian");
-                        System.out.println("Please select your option: ");
+                        printSettingsMenu();
                         String settingInput = scanner.nextLine();
 
                         if (settingInput.equalsIgnoreCase("") || settingInput == null){
@@ -280,9 +233,7 @@ public class UI {
                         }
                     }
                 } else if (menuInput.equalsIgnoreCase("q")) {
-                    System.out.println("Thank you for using ETERNITY.");
-                    history.clear();
-                    System.exit(0);
+                    printClosingMessage();
                 } else {
                     System.out.println("Invalid input");
                 }
@@ -290,6 +241,127 @@ public class UI {
             catch (EmptyInputException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private static void printTitle(){
+        System.out.println("****************************************");
+        System.out.println("*                                      *");
+        System.out.println("*               ETERNITY               *");
+        System.out.println("*                                      *");
+        System.out.println("****************************************");
+        System.out.println("           Welcome to ETERNITY!         ");
+    }
+
+    private static void printMainMenu(){
+        System.out.println("\n");
+        System.out.println("\t-------------");
+        System.out.println("\t--Main Menu--");
+        System.out.println("\t-------------");
+        System.out.println(" - 1 for Algebra calculator \n" +
+                " - 2 for Finance calculator (Mean Absolute Deviation and Standard Deviation) \n" +
+                " - 3 for Settings \n" +
+                " - q to exit the program \n");
+        System.out.print("Let us know what you want to do: ");
+    }
+
+    private static void printAlgebraCalculatorMenu(){
+        System.out.println("\n");
+        System.out.println("\t----------------------");
+        System.out.println("\t--Algebra Calculator--");
+        System.out.println("\t----------------------");
+        System.out.println(" - m to go back to main menu \n" +
+                " - h to see your history \n" +
+                " - q to exit the program \n");
+        System.out.print("Please enter your equation and hit enter: ");
+    }
+
+    private static void printFinanceCalculatorMenu(){
+        System.out.println("\n");
+        System.out.println("\t----------------------");
+        System.out.println("\t--Finance Calculator--");
+        System.out.println("\t----------------------");
+        System.out.println(" - 1 for Mean Absolute Deviation \n" +
+                " - 2 for Standard Deviation \n" +
+                " - m to go back to main menu \n" +
+                " - h to see your history \n" +
+                " - q to exit the program \n");
+        System.out.print("Please select the function that you want: ");
+    }
+
+    private static void printMADMenu(){
+        System.out.println("\n");
+        System.out.println("\t---------------------------");
+        System.out.println("\t--Mean Absolute Deviation--");
+        System.out.println("\t---------------------------");
+        System.out.println(" - m to go back to previous menu \n" +
+                " - h to see your history \n" +
+                " - q to exit the program \n");
+        System.out.println("Please enter the series of your inputs separated by a space, and hit Enter when done: \n");
+    }
+
+    private static void printSTDMenu(){
+        System.out.println("\n");
+        System.out.println("\t----------------------");
+        System.out.println("\t--Standard Deviation--");
+        System.out.println("\t----------------------");
+        System.out.println(" - m to go back to previous menu \n" +
+                " - h to see your history \n" +
+                " - q to exit the program \n");
+        System.out.println("Please enter the series of your inputs separated by a space, and hit Enter when done: \n");
+    }
+
+    private static void printSettingsMenu(){
+        System.out.println("\n");
+        System.out.println("\t------------");
+        System.out.println("\t--Settings--");
+        System.out.println("\t------------");
+        System.out.println(" - 1 for Decimals \n" +
+                " - 2 for Degree/Radian \n");
+        System.out.println("Please select your option: ");
+    }
+
+    private static void printHistory(){
+        System.out.println("\n");
+        System.out.println("\t-----------");
+        System.out.println("\t--History--");
+        System.out.println("\t-----------");
+        System.out.println("Here is the history of your previous calculations: ");
+        for (String s : history) {
+            System.out.println(s);
+        }
+        System.out.println();
+    }
+
+    private static void printClosingMessage(){
+        System.out.println("\n");
+        System.out.println("\t--------------------");
+        System.out.println("\t--Quote of the day--");
+        System.out.println("\t--------------------");
+        int random = new Random().nextInt(14);
+        System.out.println(quotes.get(random));
+        System.out.println("-" + authors.get(random));
+        System.out.println("\n");
+        System.out.println("Program shutting down...");
+        System.out.println("Thank you for using ETERNITY.");
+        history.clear();
+        System.exit(0);
+    }
+
+    private static void readQuotes(String filePath, List<String> list){
+        File file = new File(filePath);
+        BufferedReader br = null;
+        try{
+            br = new BufferedReader(new FileReader(file));
+            String st;
+            while ((st = br.readLine()) != null){
+                list.add(st);
+            }
+            br.close();
+        } catch (FileNotFoundException e){
+            System.out.println("FILE NOT FOUND");
+        } catch (IOException e) {
+            System.out.println("IO Exception");
         }
     }
 }
