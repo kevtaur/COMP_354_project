@@ -306,4 +306,49 @@ class FunctionsTest {
 		fail("Not yet implemented");
 	}
 	 */
+	@Test
+	void testsinh() {
+
+		class Case {
+			String name;
+			double input;
+			double expectedResult;
+			Exception exception;
+
+			public Case(String name, double input, double expectedResult, Exception exception) {
+				this.name = name;
+				this.input = input;
+				this.expectedResult = expectedResult;
+				this.exception = exception;
+			}
+		}
+
+		Case cases[] = new Case[] {
+				new Case("Input = 0", 0, 0, null),
+				new Case("Input = 1", 1, 1.1752, null),
+				new Case("Input = -1", -1, -1.1752, null),
+				new Case("Input = 10", 10, 11013.23287, new CalculatorException()),
+				new Case("Input = -25", 10, -3.6002, new CalculatorException()),
+				new Case("Input = 0.5", 0.5, 0.52109, null),
+				new Case("Input = -0.5", -0.5, -0.52109, null),
+		};
+
+		System.out.println("\nTest: sinh");
+		for (Case scenario : cases) {
+			System.out.println(scenario.name);
+
+			if (scenario.exception == null) {
+				try {
+					assertEquals(new BigDecimal(scenario.expectedResult).setScale(5, RoundingMode.DOWN).doubleValue(),
+							new BigDecimal(Functions.sinh(scenario.input)).setScale(5, RoundingMode.DOWN).doubleValue());
+				} catch (Exception e) {
+					fail("Unexpected exception thrown");
+				}
+			}
+
+			else {
+				Throwable exception = assertThrows(scenario.exception.getClass(), () -> Functions.arccosine(scenario.input));
+			}
+		}
+	}
 }
