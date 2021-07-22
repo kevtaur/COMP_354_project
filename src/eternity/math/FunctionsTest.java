@@ -161,12 +161,45 @@ class FunctionsTest {
 			}
 		}
 	}
-	/**
 	@Test
 	void testStd_dev() {
-		fail("Not yet implemented");
+		class Case {
+			String name;
+			ArrayList<Double> input;
+			double expectedResult;
+			Exception exception;
+
+			public Case(String name, ArrayList<Double> input, double expectedResult, Exception exception) {
+				this.name = name;
+				this.input = input;
+				this.expectedResult = expectedResult;
+				this.exception = exception;
+			}
+		}
+
+		Case cases[] = new Case[] {
+				new Case("Input = (3.0, 4.0, 8.6, 9.4, 49.3)", new ArrayList<Double>(Arrays.asList(3.0, 4.0, 8.6, 9.4, 49.3)),17.399494245523343
+						, null),
+				new Case("Input = (1.0, 1.0, 1.0, 1.0)", new ArrayList<Double>(Arrays.asList(1.0, 1.0, 1.0, 1.0)), 0.0, null),
+				new Case("Input = empty", new ArrayList<Double>(), 0, new EmptyInputException("Empty input detected.")) };
+		System.out.println("\nTest standard deviation");
+		for (Case scenario : cases) {
+			System.out.println(scenario.name);
+
+			if (scenario.exception == null) {
+				try {
+					assertEquals(scenario.expectedResult, (double) Functions.std_dev(scenario.input));
+				} catch (Exception e) {
+					fail("Unexpected exception thrown");
+				}
+			}
+			else {
+				Throwable exception = assertThrows(scenario.exception.getClass(), () -> Functions.std_dev(scenario.input));
+				assertEquals(scenario.exception.getMessage(), exception.getMessage());
+			}
+		}
+
 	}
-	*/
 	
 	@Test
 	void testMeanAbsoluteDeviation() {
