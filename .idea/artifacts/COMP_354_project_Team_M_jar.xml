@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="COMP_354_project_Team_M:jar">
-    <output-path>$PROJECT_DIR$/classes/artifacts/COMP_354_project_Team_M_jar</output-path>
+    <output-path>$PROJECT_DIR$/Application/COMP_354_project_Team_M_jar</output-path>
     <root id="archive" name="COMP_354_project_Team_M.jar">
       <element id="module-output" name="COMP_354_project_Team_M" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/junit/junit/4.13.1/junit-4.13.1.jar" path-in-jar="/" />
