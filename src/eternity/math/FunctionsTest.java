@@ -108,13 +108,7 @@ class FunctionsTest {
 		}
 	}
 	
-	
-	/**
-	@Test
-	void testExponential() {
-		fail("Not yet implemented");
-	}
-	*/
+
 	@Test
 	void testExponential() {
 		class Case {
@@ -332,13 +326,7 @@ class FunctionsTest {
 		}
 	}
 	
-	
-	/**
-	@Test
-	void testSinh() {
-		fail("Not yet implemented");
-	}
-	 */
+
 	@Test
 	void testsinh() {
 

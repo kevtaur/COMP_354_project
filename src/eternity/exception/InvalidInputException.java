@@ -2,7 +2,7 @@ package eternity.exception;
 
 public class InvalidInputException extends Exception{
     public InvalidInputException() {
-        super();
+        super("Invalid input detected");
     }
 
     public InvalidInputException(String message) {

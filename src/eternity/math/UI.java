@@ -14,8 +14,8 @@ public class UI {
     private static List<String> authors = new ArrayList<>();
     private static Decimal decimal = new Decimal();
     public static void main(String[] args) {
-        readQuotes("src/eternity/resources/motivation.txt", quotes);
-        readQuotes("src/eternity/resources/authors", authors);
+        readQuotes("/eternity/resources/motivation.txt", quotes);
+        readQuotes("/eternity/resources/authors", authors);
         Scanner scanner = new Scanner(System.in);
         printTitle();
         menuLoop:
@@ -25,7 +25,7 @@ public class UI {
             menuInput = menuInput.replaceAll("\\s","");
             try {
                 if (menuInput.equals("") || menuInput == null)
-                    throw new EmptyInputException("Empty input detected. Please re-enter your input and hit enter.");
+                    throw new EmptyInputException();
                 else if (menuInput.equals("1")) {
                     //start algebra calc
                     algebraLoop:
@@ -122,6 +122,9 @@ public class UI {
                                     catch (InvalidInputException e){
                                         System.out.println(e.getMessage());
                                     }
+                                    catch (NumberFormatException e){
+                                        System.out.println("Invalid input detected");
+                                    }
                                 }
                             } else if (financeInput.equalsIgnoreCase("2")){
                                 // start STD
@@ -171,11 +174,14 @@ public class UI {
                                     catch (CalculatorException e){
                                         System.out.println(e.getMessage());
                                     }
+                                    catch (NumberFormatException e){
+                                        System.out.println("Invalid input detected");
+                                    }
                                 }
                             }
                             else {
                                 try{
-                                    throw new InvalidInputException("Empty input detected.");
+                                    throw new InvalidInputException();
                                 }catch (InvalidInputException e) {
                                     System.out.println(e.getMessage());}
                             }
@@ -255,9 +261,9 @@ public class UI {
 
     private static void printMainMenu(){
         System.out.println("\n");
-        System.out.println("\t-------------");
-        System.out.println("\t--Main Menu--");
-        System.out.println("\t-------------");
+        System.out.println("\t---------------------------");
+        System.out.println("\t--       Main Menu       --");
+        System.out.println("\t---------------------------");
         System.out.println(" - 1 for Algebra calculator \n" +
                 " - 2 for Finance calculator (Mean Absolute Deviation and Standard Deviation) \n" +
                 " - 3 for Settings \n" +
@@ -267,9 +273,9 @@ public class UI {
 
     private static void printAlgebraCalculatorMenu(){
         System.out.println("\n");
-        System.out.println("\t----------------------");
-        System.out.println("\t--Algebra Calculator--");
-        System.out.println("\t----------------------");
+        System.out.println("\t---------------------------");
+        System.out.println("\t--   Algebra Calculator  --");
+        System.out.println("\t---------------------------");
         System.out.println(" - m to go back to main menu \n" +
                 " - h to see your history \n" +
                 " - q to exit the program \n");
@@ -278,9 +284,9 @@ public class UI {
 
     private static void printFinanceCalculatorMenu(){
         System.out.println("\n");
-        System.out.println("\t----------------------");
-        System.out.println("\t--Finance Calculator--");
-        System.out.println("\t----------------------");
+        System.out.println("\t---------------------------");
+        System.out.println("\t--   Finance Calculator  --");
+        System.out.println("\t---------------------------");
         System.out.println(" - 1 for Mean Absolute Deviation \n" +
                 " - 2 for Standard Deviation \n" +
                 " - m to go back to main menu \n" +
@@ -302,9 +308,9 @@ public class UI {
 
     private static void printSTDMenu(){
         System.out.println("\n");
-        System.out.println("\t----------------------");
-        System.out.println("\t--Standard Deviation--");
-        System.out.println("\t----------------------");
+        System.out.println("\t---------------------------");
+        System.out.println("\t--   Standard Deviation  --");
+        System.out.println("\t---------------------------");
         System.out.println(" - m to go back to previous menu \n" +
                 " - h to see your history \n" +
                 " - q to exit the program \n");
@@ -313,9 +319,9 @@ public class UI {
 
     private static void printSettingsMenu(){
         System.out.println("\n");
-        System.out.println("\t------------");
-        System.out.println("\t--Settings--");
-        System.out.println("\t------------");
+        System.out.println("\t---------------------------");
+        System.out.println("\t--       Settings        --");
+        System.out.println("\t---------------------------");
         System.out.println(" - 1 for Decimals \n" +
                 " - 2 for Degree/Radian \n");
         System.out.println("Please select your option: ");
@@ -323,21 +329,25 @@ public class UI {
 
     private static void printHistory(){
         System.out.println("\n");
-        System.out.println("\t-----------");
-        System.out.println("\t--History--");
-        System.out.println("\t-----------");
+        System.out.println("\t---------------------------");
+        System.out.println("\t--        History        --");
+        System.out.println("\t---------------------------");
         System.out.println("Here is the history of your previous calculations: ");
-        for (String s : history) {
-            System.out.println(s);
+        if (history.size()==0)
+            System.out.println("EMPTY");
+        else {
+            for (String s : history) {
+                System.out.println(s);
+            }
         }
         System.out.println();
     }
 
     private static void printClosingMessage(){
         System.out.println("\n");
-        System.out.println("\t--------------------");
-        System.out.println("\t--Quote of the day--");
-        System.out.println("\t--------------------");
+        System.out.println("\t---------------------------");
+        System.out.println("\t--   Quote of the day    --");
+        System.out.println("\t---------------------------");
         int random = new Random().nextInt(14);
         System.out.println(quotes.get(random));
         System.out.println("-" + authors.get(random));
@@ -349,10 +359,13 @@ public class UI {
     }
 
     private static void readQuotes(String filePath, List<String> list){
-        File file = new File(filePath);
+        InputStream in = UI.class.getResourceAsStream(filePath);
+//        File file = new File(filePath);
+//        System.out.println(in==null ? "CANT READ DA FILE" : "ALL GOOD");
         BufferedReader br = null;
         try{
-            br = new BufferedReader(new FileReader(file));
+            br = new BufferedReader(new InputStreamReader(in));
+//            br = new BufferedReader(new FileReader(file));
             String st;
             while ((st = br.readLine()) != null){
                 list.add(st);
