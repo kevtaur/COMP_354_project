@@ -360,12 +360,9 @@ public class UI {
 
     private static void readQuotes(String filePath, List<String> list){
         InputStream in = UI.class.getResourceAsStream(filePath);
-//        File file = new File(filePath);
-//        System.out.println(in==null ? "CANT READ DA FILE" : "ALL GOOD");
         BufferedReader br = null;
         try{
             br = new BufferedReader(new InputStreamReader(in));
-//            br = new BufferedReader(new FileReader(file));
             String st;
             while ((st = br.readLine()) != null){
                 list.add(st);
