@@ -1,5 +1,12 @@
+/** Decimal Class
+ *
+ * @author Kerly Titus
+ */
+
+
 package eternity.math;
 import java.math.BigDecimal;
+
 import java.math.RoundingMode;
 public class Decimal {
     private BigDecimal bigDecimal;

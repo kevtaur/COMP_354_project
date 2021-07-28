@@ -16,18 +16,18 @@ public class Combination {
 	 * @throws CalculatorException the calculator exception
 	 */
 	public static double calc(final int m, final int n) throws CalculatorException {
-		if (n < 0) {
+		if (n < 0)
 			throw new CalculatorException("n cannot be <0");
-		}
 
 		double result = 0.0;
 		if (m == 0) {
 			result = 0.0;
+			
 		} else {
-			result = (double) Factorial.cal(m, false)
-					/ (double) (Factorial.cal(m - n, false) * Factorial.cal(n, false));
+			result = (double) Factorial.cal(m, false) 
+				   / (double) (Factorial.cal(m - n, false) 
+				   * Factorial.cal(n, false));
 		}
-
 		return result;
 
 	}

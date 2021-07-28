@@ -40,12 +40,10 @@ public class Functions {
     		throw new CalculatorException("MATH ERROR");
     	
         int result = 1;
-
         while (x > 0) {
             result *= x;
             x -= 2;
         }
-
         return result;
     }
 
@@ -68,11 +66,13 @@ public class Functions {
         return result;
     }
 
-    public static double power_intPositiveExponent (double base, int x){
+    public static double power_intPositiveExponent(double base, int x) {
         double result = base;
-        if (x==1) return result;
+        
+        if (x == 1) 
+        	return result;
         else {
-            for (int i = 2; i<=x; i++){
+            for (int i = 2; i <= x; i++) {
                 result = result*base;
             }
             return result;
@@ -87,7 +87,7 @@ public class Functions {
         }
     }
 
-    private static double ln_derivative(double x, int derivDegree) throws CalculatorException{
+    private static double ln_derivative(double x, int derivDegree) throws CalculatorException {
         if (derivDegree == 1)
             return exponential(1,x, -1);
         else {
@@ -107,28 +107,32 @@ public class Functions {
      * @return real number
      * Input restraint: no negative base with decimal exponent
      */
-    public static double exponential(double a, double b, double x)  throws CalculatorException{
+    public static double exponential(double a, double b, double x) throws CalculatorException {
         Double result = 0.0;
-        if (b>=0)
+        
+        if (b >= 0)
             result = a * natural_exponential(x * ln(b));
         else
             result = a* Math.pow(b,x);
+        
         if (result.isNaN())
             throw new CalculatorException("MATH ERROR");
-        else return result;
+        else 
+        	return result;
     }
 
     public static double power(double x, int n){
-        if(n==0)
+        if (n == 0)
             return 1;
 
-        if(n<0){
-            x = 1.0/x;
+        if (n < 0) {
+            x = 1.0 / x;
             n = -n;
         }
-        double ret = power(x,n/2);
+        
+        double ret = power(x, n / 2);
         ret = ret * ret;
-        if(n%2!=0)
+        if(n % 2 != 0)
             ret = ret * x;
         return ret;
     }
@@ -210,8 +214,9 @@ public class Functions {
      * @return real number
      */
 	public static double log(double x, double base) throws OutOfRangeException {
-		if (x <= 0 || base <= 0 || base == 1) throw new OutOfRangeException();
-		return ln(x)/ln(base);
+		if (x <= 0 || base <= 0 || base == 1) 
+			throw new OutOfRangeException();
+		return ln(x) / ln(base);
 	}
 	
 	/**
@@ -222,7 +227,7 @@ public class Functions {
     public static double sinh(double x){
         double e1 = natural_exponential(x); // calculate the e^x
         double e2 = natural_exponential(-x);// calculate the e^-x
-        double sinh = (e1-e2)/2;
+        double sinh = (e1 - e2) / 2;
         return sinh;
     }
 }

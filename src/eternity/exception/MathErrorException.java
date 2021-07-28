@@ -1,6 +1,7 @@
 package eternity.exception;
 
 public class MathErrorException extends Exception {
+	
 	public MathErrorException() {
 		super();
 	}

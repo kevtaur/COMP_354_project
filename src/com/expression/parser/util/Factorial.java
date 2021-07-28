@@ -16,23 +16,20 @@ public class Factorial {
 	 * @throws CalculatorException the calculator exception
 	 */
 	public static int cal(final int m, final boolean valueZero) throws CalculatorException {
-		if (m < 0) {
+		if (m < 0)
 			throw new CalculatorException("the number must be greater than 0");
-		}
 
 		int result = 1;
 		if (m == 0) {
-			if (valueZero) {
+			if (valueZero)
 				result = 0;
-			} else {
+			else
 				result = 1;
-			}
+			
 		} else {
-			for (int i = m; i > 0; i--) {
+			for (int i = m; i > 0; i--)
 				result *= i;
-			}
 		}
 		return result;
 	}
-
 }
