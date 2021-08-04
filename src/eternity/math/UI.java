@@ -375,7 +375,7 @@ public class UI {
 		System.out.println("\t--   Quote of the day    --");
 		System.out.println("\t---------------------------");
 
-		int random = new Random().nextInt(14);
+		int random = new Random().nextInt(quotes.size());
 		System.out.println(quotes.get(random));
 		System.out.println("-" + authors.get(random));
 		System.out.println("\n");
