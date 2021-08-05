@@ -51,6 +51,9 @@ public class UI {
 
 							else if (algebraInput.equalsIgnoreCase("h"))
 								printHistory();
+							
+							else if (algebraInput.equalsIgnoreCase("c"))
+								clearHistory();
 
 							else {
 								try {
@@ -93,6 +96,9 @@ public class UI {
 
 							else if (financeInput.equalsIgnoreCase("h"))
 								printHistory();
+							
+							else if (financeInput.equalsIgnoreCase("c"))
+								clearHistory();
 
 							else if (financeInput.equalsIgnoreCase("1")) {
 								// start MAD
@@ -113,6 +119,9 @@ public class UI {
 
 										else if (MADinput.equalsIgnoreCase("h"))
 											printHistory();
+										
+										else if (MADinput.equalsIgnoreCase("c"))
+											clearHistory();
 
 										else if (MADinput.matches("[0-9\\s.]+")) {
 											List<String> listOfStringInputs = new ArrayList<>();
@@ -163,6 +172,8 @@ public class UI {
 											printClosingMessage();
 										} else if (STDinput.equalsIgnoreCase("h")) {
 											printHistory();
+										} else if (STDinput.equalsIgnoreCase("c")) {
+											clearHistory();
 										} else if (STDinput.matches("[0-9\\s.]+")) {
 											List<String> listOfStringInputs = new ArrayList<>();
 											listOfStringInputs = Arrays.asList(STDinput.split("\\s"));
@@ -308,7 +319,7 @@ public class UI {
 		System.out.println("\t--   Algebra Calculator  --");
 		System.out.println("\t---------------------------");
 		System.out.println(
-				" - m to go back to main menu \n" + " - h to see your history \n" + " - q to exit the program \n");
+				" - m to go back to main menu \n" + " - h to see your history \n" + " - c to clear your history \n" + " - q to exit the program \n");
 		System.out.print("Please enter your equation and hit enter: ");
 	}
 
@@ -367,6 +378,10 @@ public class UI {
 		}
 
 		System.out.println();
+	}
+	
+	private static void clearHistory() {
+		history.clear();
 	}
 
 	private static void printClosingMessage() {
