@@ -85,5 +85,6 @@ Settings option allows you to change the decimal places of ETERNITY or switch ET
 At any point during the program, you can use the following options:
 -	m to go back to previous menu
 -	h to see history
+-	c to clear history
 -	q to quit the program
 
