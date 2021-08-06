@@ -329,7 +329,7 @@ public class UI {
 		System.out.println("\t--   Finance Calculator  --");
 		System.out.println("\t---------------------------");
 		System.out.println(" - 1 for Mean Absolute Deviation \n" + " - 2 for Standard Deviation \n"
-				+ " - m to go back to main menu \n" + " - h to see your history \n" + " - q to exit the program \n");
+				+ " - m to go back to main menu \n" + " - h to see your history \n" + " - c to clear your history \n"+ " - q to exit the program \n");
 		System.out.print("Please select the function that you want: ");
 	}
 
@@ -339,7 +339,7 @@ public class UI {
 		System.out.println("\t--Mean Absolute Deviation--");
 		System.out.println("\t---------------------------");
 		System.out.println(
-				" - m to go back to previous menu \n" + " - h to see your history \n" + " - q to exit the program \n");
+				" - m to go back to previous menu \n" + " - h to see your history \n" + " - c to clear your history \n"+ " - q to exit the program \n");
 		System.out.println("Please enter the series of your inputs separated by a space, and hit Enter when done: \n");
 	}
 
@@ -349,7 +349,7 @@ public class UI {
 		System.out.println("\t--   Standard Deviation  --");
 		System.out.println("\t---------------------------");
 		System.out.println(
-				" - m to go back to previous menu \n" + " - h to see your history \n" + " - q to exit the program \n");
+				" - m to go back to previous menu \n" + " - h to see your history \n" + " - c to clear your history \n"+ " - q to exit the program \n");
 		System.out.println("Please enter the series of your inputs separated by a space, and hit Enter when done: \n");
 	}
 
@@ -382,6 +382,7 @@ public class UI {
 	
 	private static void clearHistory() {
 		history.clear();
+		System.out.println("** History cleared **");
 	}
 
 	private static void printClosingMessage() {
